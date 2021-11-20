@@ -2,15 +2,13 @@ from flask import Flask
 import folium
 import pandas as pd
 from folium.plugins import MarkerCluster
+from folium.features import DivIcon
+
 data_final = pd.read_csv("data_final_full.csv")
 app = Flask(__name__)
 tahtiluokka1 = "kattavuusdata/4G/4G_tahtiluokka_1.json"
 tahtiluokka2 = "kattavuusdata/4G/4G_tahtiluokka_2.json"
 tahtiluokka3 = "kattavuusdata/4G/4G_tahtiluokka_3.json"
-
-tahtiluokka1_5G = "kattavuusdata/5G/5G_tahtiluokka_1.json"
-tahtiluokka2_5G = "kattavuusdata/5G/5G_tahtiluokka_2.json"
-tahtiluokka3_5G = "kattavuusdata/5G/5G_tahtiluokka_3.json"
 
 @app.route('/')
 def index():
@@ -23,7 +21,7 @@ def index():
 
     folium.Choropleth(
         geo_data=state_geo,
-        name="Post code areas",
+        name="choropleth",
         data=state_data,
         columns=["Postcode", "Activity"],
         key_on="feature.id",
@@ -33,18 +31,18 @@ def index():
         line_opacity=0,
         line_weight=0,
         line_color="YlGn",
-        legend_name="Activity Rate",
+        legend_name="Movement Rate",
     ).add_to(folium_map)
-
-    cluster = MarkerCluster(name = "Cell site").add_to(folium_map)
+    cluster = MarkerCluster().add_to(folium_map)
     for index, latlon in data_final.iterrows():
         folium.Marker(location=[latlon["latitude"],latlon["longitude"]],
                             radius=0.0001,
                             weight=5).add_to(cluster)
 
+
     folium.Choropleth(
         geo_data=tahtiluokka1, 
-        name="geojson 4G *1",
+        name="geojson",
         fill_color="red",
         fill_opacity=0.7,
         line_color="red",
@@ -53,7 +51,7 @@ def index():
 
     folium.Choropleth(
         geo_data=tahtiluokka2, 
-        name="geojson 4G *2",
+        name="geojson",
         fill_color="yellow",
         line_color="yellow",
         fill_opacity=0.7,
@@ -62,42 +60,25 @@ def index():
 
     folium.Choropleth(
         geo_data=tahtiluokka3, 
-        name="geojson 4G *3",
+        name="geojson",
         fill_color="green",
         line_color="green",
         fill_opacity=0.7,
         line_opacity=0.1
     ).add_to(folium_map)
 
-
-    folium.Choropleth(
-        geo_data=tahtiluokka1_5G, 
-        name="geojson 5G  *1",
-        fill_color="red",
-        fill_opacity=0.7,
-        line_color="red",
-        line_opacity=0.1
+    folium.map.Marker(
+    [59.5, 28],
+    icon=DivIcon(
+        icon_size=(700,400),
+        icon_anchor=(0,0),
+        html='<div style="font-size: 20pt">Monthly movement decrease: 64.5%</div><div style="font-size: 20pt">Base station power consumption save: 5.9%</div><div style="font-size: 20pt">Network power consumption save: 5.0%</div><div style="font-size: 20pt"> Operating cost save: 1.5%</div>',
+        )
     ).add_to(folium_map)
 
-    folium.Choropleth(
-        geo_data=tahtiluokka2_5G, 
-        name="geojson 5G *2",
-        fill_color="yellow",
-        line_color="yellow",
-        fill_opacity=0.7,
-        line_opacity=0.1
-    ).add_to(folium_map)
-
-    folium.Choropleth(
-        geo_data=tahtiluokka3_5G, 
-        name="geojson 5G *3",
-        fill_color="green",
-        line_color="green",
-        fill_opacity=0.7,
-        line_opacity=0.1
-    ).add_to(folium_map)
     folium.LayerControl().add_to(folium_map)
     
     return folium_map._repr_html_()
+
 if __name__ == "__main__":
     app.run(debug=True)
