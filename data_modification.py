@@ -40,5 +40,4 @@ for file in files_4g:
                 is_ok_polygon = True
                 break
         if is_not_a_ok_polygon:
-            #Heitetään vittuun
-            
+            print("hei!")
