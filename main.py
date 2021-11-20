@@ -35,13 +35,9 @@ def index():
         line_weight=0,
         line_color="YlGn",
         legend_name="Activity Rate",
+        z_index = 0,
+        show = True
     ).add_to(folium_map)
-
-    cluster = MarkerCluster(name = "Cell site").add_to(folium_map)
-    for index, latlon in data_final.iterrows():
-        folium.Marker(location=[latlon["latitude"],latlon["longitude"]],
-                            radius=0.0001,
-                            weight=5).add_to(cluster)
 
     folium.Choropleth(
         geo_data=tahtiluokka1, 
@@ -49,7 +45,9 @@ def index():
         fill_color="red",
         fill_opacity=0.7,
         line_color="red",
-        line_opacity=0.1
+        line_opacity=0.1,
+        z_index = 3,
+        show = True
     ).add_to(folium_map)
 
     folium.Choropleth(
@@ -58,7 +56,9 @@ def index():
         fill_color="yellow",
         line_color="yellow",
         fill_opacity=0.7,
-        line_opacity=0.1
+        line_opacity=0.1,
+        z_index = 2,
+        show = True
     ).add_to(folium_map)
 
     folium.Choropleth(
@@ -67,7 +67,9 @@ def index():
         fill_color="green",
         line_color="green",
         fill_opacity=0.7,
-        line_opacity=0.1
+        line_opacity=0.1,
+        z_index = 1,
+        show = True
     ).add_to(folium_map)
 
 
@@ -77,7 +79,9 @@ def index():
         fill_color="red",
         fill_opacity=0.7,
         line_color="red",
-        line_opacity=0.1
+        line_opacity=0.1,
+        z_index = 6,
+        show = False  
     ).add_to(folium_map)
 
     folium.Choropleth(
@@ -86,7 +90,9 @@ def index():
         fill_color="yellow",
         line_color="yellow",
         fill_opacity=0.7,
-        line_opacity=0.1
+        line_opacity=0.1,
+        z_index = 5,
+        show = False
     ).add_to(folium_map)
 
     folium.Choropleth(
@@ -95,10 +101,21 @@ def index():
         fill_color="green",
         line_color="green",
         fill_opacity=0.7,
-        line_opacity=0.1
+        line_opacity=0.1,
+        z_index = 4,
+        show = False
     ).add_to(folium_map)
-    folium.LayerControl().add_to(folium_map)
+        
+    cluster = MarkerCluster(name = "Cell site",
+        z_index = 7,
+        show = False).add_to(folium_map)
+    for index, latlon in data_final.iterrows():
+        folium.Marker(location=[latlon["latitude"],latlon["longitude"]],
+                            radius=0.0001,
+                            weight=5).add_to(cluster)
+
+    folium.LayerControl(autoZIndex=True).add_to(folium_map)
     
     return folium_map._repr_html_()
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
