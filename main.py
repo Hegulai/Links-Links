@@ -74,11 +74,6 @@ def index():
         legend_name="Movement activity change (Christmas Day to Nov 4th)",
     ).add_to(folium_map)
 
-    cluster = MarkerCluster(name = "Cell site").add_to(folium_map)
-    for index, latlon in data_final.iterrows():
-        folium.Marker(location=[latlon["latitude"],latlon["longitude"]],
-                            radius=0.0001,
-                            weight=5).add_to(cluster)
 
     folium.Choropleth(
         geo_data=tahtiluokka1, 
