@@ -2,6 +2,7 @@ from flask import Flask
 import folium
 import pandas as pd
 from folium.plugins import MarkerCluster
+from folium.features import DivIcon
 data_final = pd.read_csv("data/data_final_full.csv")
 app = Flask(__name__)
 
@@ -24,7 +25,7 @@ def index():
 
     folium.Choropleth(
         geo_data=state_geo,
-        name="Post code areas",
+        name="Movement activity by post code",
         data=state_data,
         columns=["Postcode", "Activity"],
         key_on="feature.id",
@@ -34,75 +35,68 @@ def index():
         line_opacity=0,
         line_weight=0,
         line_color="YlGn",
-        legend_name="Activity Rate",
-        z_index = 0,
-        show = True
+        show = True,
+        legend_name="Movement activity"
     ).add_to(folium_map)
 
     folium.Choropleth(
         geo_data=tahtiluokka1, 
-        name="geojson 4G *1",
+        name="4G *1",
         fill_color="red",
         fill_opacity=0.7,
         line_color="red",
         line_opacity=0.1,
-        z_index = 3,
         show = True
     ).add_to(folium_map)
 
     folium.Choropleth(
         geo_data=tahtiluokka2, 
-        name="geojson 4G *2",
+        name="4G *2",
         fill_color="yellow",
         line_color="yellow",
         fill_opacity=0.7,
         line_opacity=0.1,
-        z_index = 2,
         show = True
     ).add_to(folium_map)
 
     folium.Choropleth(
         geo_data=tahtiluokka3, 
-        name="geojson 4G *3",
+        name="4G *3",
         fill_color="green",
         line_color="green",
         fill_opacity=0.7,
         line_opacity=0.1,
-        z_index = 1,
         show = True
     ).add_to(folium_map)
 
 
     folium.Choropleth(
         geo_data=tahtiluokka1_5G, 
-        name="geojson 5G  *1",
+        name="5G  *1",
         fill_color="red",
         fill_opacity=0.7,
         line_color="red",
         line_opacity=0.1,
-        z_index = 6,
         show = False  
     ).add_to(folium_map)
 
     folium.Choropleth(
         geo_data=tahtiluokka2_5G, 
-        name="geojson 5G *2",
+        name="5G *2",
         fill_color="yellow",
         line_color="yellow",
         fill_opacity=0.7,
         line_opacity=0.1,
-        z_index = 5,
         show = False
     ).add_to(folium_map)
 
     folium.Choropleth(
         geo_data=tahtiluokka3_5G, 
-        name="geojson 5G *3",
+        name="5G *3",
         fill_color="green",
         line_color="green",
         fill_opacity=0.7,
         line_opacity=0.1,
-        z_index = 4,
         show = False
     ).add_to(folium_map)
         
@@ -114,7 +108,18 @@ def index():
                             radius=0.0001,
                             weight=5).add_to(cluster)
 
-    folium.LayerControl(autoZIndex=True).add_to(folium_map)
+
+    folium.map.Marker(
+    [59.5, 22],
+    icon=DivIcon(
+        icon_size=(700,400),
+        icon_anchor=(0,0),
+        html='<div style="font-size: 20pt">Monthly movement decrease: 64.5%</div><div style="font-size: 20pt">Base station power consumption save: 5.9%</div><div style="font-size: 20pt">Network power consumption save: 5.0%</div><div style="font-size: 20pt"> Operating cost save: 1.5%</div>',
+        ),
+        show = True
+    ).add_to(folium_map)
+
+    folium.LayerControl().add_to(folium_map)
     
     return folium_map._repr_html_()
 if __name__ == "__main__":
