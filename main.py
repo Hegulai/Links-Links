@@ -40,7 +40,8 @@ def index():
         line_opacity=0,
         line_weight=0,
         line_color="YlGn",
-        legend_name="Movement activity",
+        show = True,
+        legend_name="Movement activity"
     ).add_to(folium_map)
 
     folium.Choropleth(
@@ -85,7 +86,8 @@ def index():
         fill_color="red",
         fill_opacity=0.7,
         line_color="red",
-        line_opacity=0.1
+        line_opacity=0.1,
+        show = True
     ).add_to(folium_map)
 
     folium.Choropleth(
@@ -94,7 +96,8 @@ def index():
         fill_color="yellow",
         line_color="yellow",
         fill_opacity=0.7,
-        line_opacity=0.1
+        line_opacity=0.1,
+        show = True
     ).add_to(folium_map)
 
     folium.Choropleth(
@@ -103,7 +106,8 @@ def index():
         fill_color="green",
         line_color="green",
         fill_opacity=0.7,
-        line_opacity=0.1
+        line_opacity=0.1,
+        show = True
     ).add_to(folium_map)
 
 
@@ -113,7 +117,8 @@ def index():
         fill_color="red",
         fill_opacity=0.7,
         line_color="red",
-        line_opacity=0.1
+        line_opacity=0.1,
+        show = False  
     ).add_to(folium_map)
 
     folium.Choropleth(
@@ -122,7 +127,8 @@ def index():
         fill_color="yellow",
         line_color="yellow",
         fill_opacity=0.7,
-        line_opacity=0.1
+        line_opacity=0.1,
+        show = False
     ).add_to(folium_map)
 
     folium.Choropleth(
@@ -131,9 +137,18 @@ def index():
         fill_color="green",
         line_color="green",
         fill_opacity=0.7,
-        line_opacity=0.1
+        line_opacity=0.1,
+        show = False
     ).add_to(folium_map)
-    folium.LayerControl().add_to(folium_map)
+        
+    cluster = MarkerCluster(name = "Cell site",
+        z_index = 7,
+        show = False).add_to(folium_map)
+    for index, latlon in data_final.iterrows():
+        folium.Marker(location=[latlon["latitude"],latlon["longitude"]],
+                            radius=0.0001,
+                            weight=5).add_to(cluster)
+
 
     folium.map.Marker(
     [59.5, 22],
@@ -141,9 +156,12 @@ def index():
         icon_size=(700,400),
         icon_anchor=(0,0),
         html='<div style="font-size: 20pt">Movement decrease from November to July: -64.5%</div><div style="font-size: 20pt">Base station power consumption save: 5.9%</div><div style="font-size: 20pt">Network power consumption save: 5.0%</div><div style="font-size: 20pt"> Operating cost save: 1.5%</div>',
-        )
+        ),
+        show = True
     ).add_to(folium_map)
+
+    folium.LayerControl().add_to(folium_map)
     
     return folium_map._repr_html_()
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
