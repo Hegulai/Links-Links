@@ -3,7 +3,7 @@ import folium
 import pandas as pd
 from folium.plugins import MarkerCluster
 
-data_final = pd.read_csv("data_final.csv")
+data_final = pd.read_csv("data_final_full.csv")
 app = Flask(__name__)
 tahtiluokka1 = "kattavuusdata/4G/4G_tahtiluokka_1.json"
 tahtiluokka2 = "kattavuusdata/4G/4G_tahtiluokka_2.json"
