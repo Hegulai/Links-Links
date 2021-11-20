@@ -2,6 +2,7 @@ from flask import Flask
 import folium
 import pandas as pd
 from folium.plugins import MarkerCluster
+from folium.features import DivIcon
 data_final = pd.read_csv("data/data_final_full.csv")
 app = Flask(__name__)
 
@@ -98,6 +99,15 @@ def index():
         line_opacity=0.1
     ).add_to(folium_map)
     folium.LayerControl().add_to(folium_map)
+
+    folium.map.Marker(
+    [59.5, 22],
+    icon=DivIcon(
+        icon_size=(700,400),
+        icon_anchor=(0,0),
+        html='<div style="font-size: 20pt">Monthly movement decrease: 64.5%</div><div style="font-size: 20pt">Base station power consumption save: 5.9%</div><div style="font-size: 20pt">Network power consumption save: 5.0%</div><div style="font-size: 20pt"> Operating cost save: 1.5%</div>',
+        )
+    ).add_to(folium_map)
     
     return folium_map._repr_html_()
 if __name__ == "__main__":
