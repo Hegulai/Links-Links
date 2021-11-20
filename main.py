@@ -25,7 +25,7 @@ def index():
 
     folium.Choropleth(
         geo_data=state_geo,
-        name="Post code areas",
+        name="Movement activity by post code",
         data=state_data,
         columns=["Postcode", "Activity"],
         key_on="feature.id",
