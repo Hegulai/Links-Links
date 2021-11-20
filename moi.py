@@ -13,7 +13,7 @@ def main():
     for i in lines:
         spl = i.split(",")
         try:
-            changed.append(f"{spl[0]},{int(spl[1])/biggest}")
+            changed.append(f"Postcode{spl[0]},{int(spl[1])/biggest}")
         except:
             changed.append(i)
     with open("normalisoitu.csv", "w") as fout:
