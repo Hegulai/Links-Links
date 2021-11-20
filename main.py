@@ -22,6 +22,11 @@ def index():
     state_geo = "data/postcodes.json"
     state_unemployment = "data/normalisoitu.csv"
     state_data = pd.read_csv(state_unemployment)
+    season_activity_change = "data/holiday_season_activity2.csv"
+    season_data = pd.read_csv(season_activity_change)
+    christmas_activity_change = "data/christmas_activity2.csv"
+    christmas_data = pd.read_csv(season_activity_change)
+
 
     folium.Choropleth(
         geo_data=state_geo,
@@ -36,6 +41,36 @@ def index():
         line_weight=0,
         line_color="YlGn",
         legend_name="Movement activity",
+    ).add_to(folium_map)
+
+    folium.Choropleth(
+        geo_data=state_geo,
+        name="Movement activity change from November to July by post code",
+        data=season_data,
+        columns=["Postcode", "Activity"],
+        key_on="feature.id",
+        bins=9,
+        fill_color="RdPu",
+        fill_opacity=1,
+        line_opacity=0,
+        line_weight=0,
+        line_color="YlGn",
+        legend_name="Movement activity change (November to July)",
+    ).add_to(folium_map)
+
+    folium.Choropleth(
+        geo_data=state_geo,
+        name="Movement activity change from Christmas to Monday Nov. 4th by post code",
+        data=christmas_data,
+        columns=["Postcode", "Activity"],
+        key_on="feature.id",
+        bins=9,
+        fill_color="PuBuGn",
+        fill_opacity=1,
+        line_opacity=0,
+        line_weight=0,
+        line_color="YlGn",
+        legend_name="Movement activity change (Christmas Day to Nov 4th)",
     ).add_to(folium_map)
 
     cluster = MarkerCluster(name = "Cell site").add_to(folium_map)
@@ -105,7 +140,7 @@ def index():
     icon=DivIcon(
         icon_size=(700,400),
         icon_anchor=(0,0),
-        html='<div style="font-size: 20pt">Monthly movement decrease: 64.5%</div><div style="font-size: 20pt">Base station power consumption save: 5.9%</div><div style="font-size: 20pt">Network power consumption save: 5.0%</div><div style="font-size: 20pt"> Operating cost save: 1.5%</div>',
+        html='<div style="font-size: 20pt">Movement decrease from November to July: -64.5%</div><div style="font-size: 20pt">Base station power consumption save: 5.9%</div><div style="font-size: 20pt">Network power consumption save: 5.0%</div><div style="font-size: 20pt"> Operating cost save: 1.5%</div>',
         )
     ).add_to(folium_map)
     
