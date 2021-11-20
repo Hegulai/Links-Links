@@ -35,7 +35,7 @@ def index():
         line_opacity=0,
         line_weight=0,
         line_color="YlGn",
-        legend_name="Activity Rate",
+        legend_name="Movement activity",
     ).add_to(folium_map)
 
     cluster = MarkerCluster(name = "Cell site").add_to(folium_map)
@@ -46,7 +46,7 @@ def index():
 
     folium.Choropleth(
         geo_data=tahtiluokka1, 
-        name="geojson 4G *1",
+        name="4G *1",
         fill_color="red",
         fill_opacity=0.7,
         line_color="red",
@@ -55,7 +55,7 @@ def index():
 
     folium.Choropleth(
         geo_data=tahtiluokka2, 
-        name="geojson 4G *2",
+        name="4G *2",
         fill_color="yellow",
         line_color="yellow",
         fill_opacity=0.7,
@@ -64,7 +64,7 @@ def index():
 
     folium.Choropleth(
         geo_data=tahtiluokka3, 
-        name="geojson 4G *3",
+        name="4G *3",
         fill_color="green",
         line_color="green",
         fill_opacity=0.7,
@@ -74,7 +74,7 @@ def index():
 
     folium.Choropleth(
         geo_data=tahtiluokka1_5G, 
-        name="geojson 5G  *1",
+        name="5G  *1",
         fill_color="red",
         fill_opacity=0.7,
         line_color="red",
@@ -83,7 +83,7 @@ def index():
 
     folium.Choropleth(
         geo_data=tahtiluokka2_5G, 
-        name="geojson 5G *2",
+        name="5G *2",
         fill_color="yellow",
         line_color="yellow",
         fill_opacity=0.7,
@@ -92,7 +92,7 @@ def index():
 
     folium.Choropleth(
         geo_data=tahtiluokka3_5G, 
-        name="geojson 5G *3",
+        name="5G *3",
         fill_color="green",
         line_color="green",
         fill_opacity=0.7,
