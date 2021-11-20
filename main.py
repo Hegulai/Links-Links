@@ -2,23 +2,24 @@ from flask import Flask
 import folium
 import pandas as pd
 from folium.plugins import MarkerCluster
-data_final = pd.read_csv("data_final_full.csv")
+data_final = pd.read_csv("data/data_final_full.csv")
 app = Flask(__name__)
-tahtiluokka1 = "kattavuusdata/4G/4G_tahtiluokka_1.json"
-tahtiluokka2 = "kattavuusdata/4G/4G_tahtiluokka_2.json"
-tahtiluokka3 = "kattavuusdata/4G/4G_tahtiluokka_3.json"
 
-tahtiluokka1_5G = "kattavuusdata/5G/5G_tahtiluokka_1.json"
-tahtiluokka2_5G = "kattavuusdata/5G/5G_tahtiluokka_2.json"
-tahtiluokka3_5G = "kattavuusdata/5G/5G_tahtiluokka_3.json"
+tahtiluokka1 = "data/4G/4G_tahtiluokka_1.json"
+tahtiluokka2 = "data/4G/4G_tahtiluokka_2.json"
+tahtiluokka3 = "data/4G/4G_tahtiluokka_3.json"
+
+tahtiluokka1_5G = "data/5G/5G_tahtiluokka_1.json"
+tahtiluokka2_5G = "data/5G/5G_tahtiluokka_2.json"
+tahtiluokka3_5G = "data/5G/5G_tahtiluokka_3.json"
 
 @app.route('/')
 def index():
     start_coords = (60.1666, 24.9436)
     folium_map = folium.Map(location=start_coords, zoom_start=6)
     
-    state_geo = "postcodes.json"
-    state_unemployment = "normalisoitu.csv"
+    state_geo = "data/postcodes.json"
+    state_unemployment = "data/normalisoitu.csv"
     state_data = pd.read_csv(state_unemployment)
 
     folium.Choropleth(
