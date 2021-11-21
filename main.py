@@ -19,9 +19,9 @@ def index():
     start_coords = (60.1666, 24.9436)
     folium_map = folium.Map(location=start_coords, zoom_start=6)
     
-    state_geo = "data/postcodes.json"
-    state_unemployment = "data/normalisoitu.csv"
-    state_data = pd.read_csv(state_unemployment)
+    post_geo = "data/postcodes.json"
+    post_movement = "data/normalisoitu.csv"
+    movement_data = pd.read_csv(post_movement)
     season_activity_change = "data/holiday_season_activity2.csv"
     season_data = pd.read_csv(season_activity_change)
     christmas_activity_change = "data/christmas_activity2.csv"
@@ -29,9 +29,9 @@ def index():
 
 
     folium.Choropleth(
-        geo_data=state_geo,
+        geo_data=post_geo,
         name="Movement activity by post code",
-        data=state_data,
+        data=movement_data,
         columns=["Postcode", "Activity"],
         key_on="feature.id",
         bins=9,
@@ -45,7 +45,7 @@ def index():
     ).add_to(folium_map)
 
     folium.Choropleth(
-        geo_data=state_geo,
+        geo_data=post_geo,
         name="Movement activity change from November to July by post code",
         data=season_data,
         columns=["Postcode", "Activity"],
@@ -60,7 +60,7 @@ def index():
     ).add_to(folium_map)
 
     folium.Choropleth(
-        geo_data=state_geo,
+        geo_data=post_geo,
         name="Movement activity change from Christmas to Monday Nov. 4th by post code",
         data=christmas_data,
         columns=["Postcode", "Activity"],
