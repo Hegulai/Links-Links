@@ -14,5 +14,9 @@ The example visualization includes different layers. First and foremost it utili
 
 Additionally, we have utilized the data of travelers between postal codes. Layer "Postal code area" shows the how much there is travel to each postal code. The unit of travel has been normalized such that the postal code with most travel has value 1. As one might guess the highest amount of traffic occurs at 00100. It has been left out from the data, as the sole outlier skews the color gradient badly. The scale is still the same, as indicated in the legend.
 
-As a completely new addition to the data provided by folks at Elisa, we also included some off-the-record locations of cell towers. They can be switched on and off from by the layer "Cell site". As there are quite a few of them, you will only find the exact locations by zooming in quite a bit.
+The other two sliders on top of the page represent monthly and daily differences in travelers respectively. Comparing November and July gives us a look into the difference in travelling activity between a calm summer season and a more busy winter season. Same goes for comparing Christmas day and a normal monday in November.
+
+As a completely new addition to the original Elisa data, we also included some off-the-record locations of cell towers. They can be switched on and off from by the layer "Cell site". As there are quite a few of them, you will only find the exact locations by zooming in quite a bit.
+
+
 

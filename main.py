@@ -25,7 +25,7 @@ def index():
     season_activity_change = "data/holiday_season_activity2.csv"
     season_data = pd.read_csv(season_activity_change)
     christmas_activity_change = "data/christmas_activity2.csv"
-    christmas_data = pd.read_csv(season_activity_change)
+    christmas_data = pd.read_csv(christmas_activity_change)
 
 
     folium.Choropleth(
